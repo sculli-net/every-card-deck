@@ -7,7 +7,7 @@ import UUIDDisplay from "../UUIDDisplay/UUIDDisplay";
 import SearchWidget from "../SearchWidget/SearchWidget";
 import FavoritesWidget from "../FavoritesWidget";
 import { indexToUUID, uuidToIndex } from "../../../lib/uuidTools";
-
+import JokeOverlay from "../JokeOverlay/JokeOverlay";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -181,8 +181,37 @@ function App() {
     });
   }, [virtualPosition, itemsToShow, showFavorites, favedUUIDs, MAX_POSITION]);
 
+  const firstUuid = React.useMemo(() => {
+    if (showFavorites) {
+      return Object.keys(favedUUIDs)[0];
+    }
+    return indexToUUID(virtualPosition);
+  }, [virtualPosition, showFavorites, favedUUIDs]);
+
+  const [browserHash, setBrowserHash] = React.useState(null);
+
+  React.useEffect(() => {
+    setBrowserHash(window.location.hash);
+    const handleHashChange = () => {
+      setBrowserHash(window.location.hash);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
+  const hashContainsTheo = React.useMemo(() => {
+    if (!browserHash) {
+      return false;
+    }
+    const hash = browserHash.slice(1);
+    return hash.includes("theo");
+  }, [browserHash]);
+
   return (
     <>
+      {hashContainsTheo && <JokeOverlay firstUuid={firstUuid} />}
       <SearchWidget
         animateToPosition={animateToPosition}
         virtualPosition={virtualPosition}
