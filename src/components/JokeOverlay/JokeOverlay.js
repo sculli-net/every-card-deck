@@ -14,9 +14,17 @@ const Overlay = styled.div`
 `;
 
 function isAscii(str) {
-  // This matches any string that only contains ASCII characters (codes 0-127)
-  return /^[\x00-\x7F]*$/.test(str);
+  return /^[\x20-\x7F]*$/.test(str);
 }
+
+function startsWithTh(str) {
+  return str.startsWith("Th");
+}
+
+function lengthAtLeast3(str) {
+  return str.length >= 3;
+}
+
 const encryptedBase64 =
   "U2FsdGVkX19zQCWo/QFwcwv/xn/qeyn6aLGizL9qReGGHNf7J+4+oQOmdnNnY2BmomnJytdKLnuSfLBzNf1Op7mSBSVyNr6ZWiaXnueFojM=";
 const encryptedData = forge.util.decode64(encryptedBase64);
@@ -27,7 +35,6 @@ export function useUUIDDecryptor() {
 
   const tryUUID = React.useCallback((uuid) => {
     setStatus("decrypting");
-    console.log("Trying UUID:", uuid);
 
     try {
       // Check for "Salted__" prefix
@@ -64,10 +71,11 @@ export function useUUIDDecryptor() {
       if (success) {
         // Get output
         const decrypted = decipher.output.data;
-        console.log("Decryption result:", decrypted);
-        const allAscii = isAscii(decrypted);
-        if (decrypted.length > 0 && allAscii) {
-          console.log("Decrypted text is all ASCII");
+        if (
+          isAscii(decrypted) &&
+          lengthAtLeast3(decrypted) &&
+          startsWithTh(decrypted)
+        ) {
           setStatus("success");
           setDecryptedText(decrypted);
           return true;
