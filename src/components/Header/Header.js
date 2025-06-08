@@ -147,8 +147,12 @@ function Header() {
             <Bsky />
           </SocialLink>
         </Socials>
-        <p>
-          A website by <Link href="https://eieio.games">eieio</Link>
+        <p className="text-sm text-slate-500">
+          A website by{" "}
+          <Link href="https://sculli.net">Matt Scullino</Link>
+          <br />
+          Originally by{" "}
+          <Link href="https://eieio.games">eieio</Link>
         </p>
       </SelfPromotion>
     </Wrapper>

@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import UnstyledButton from "../UnstyledButton/UnstyledButton";
 import { X, ChevronUp, ChevronDown } from "../Icons/Icons";
-import { uuidToIndex } from "../../../lib/uuidTools";
-import { useUUIDSearch } from "../../../hooks/use-uuid-search";
+import { deckToIndex } from "../../../lib/deckTools";
+import { useUUIDSearch } from "../../../hooks/use-card-search";
 import { querySmallScreen, SCROLLBAR_WIDTH } from "../../../lib/constants";
 
 const Button = styled(UnstyledButton)`
@@ -149,7 +149,7 @@ function SearchWidget({
   });
   const index = React.useMemo(() => {
     if (currentUUID) {
-      const index = uuidToIndex(currentUUID);
+      const index = deckToIndex(currentUUID);
 
       return index;
     }

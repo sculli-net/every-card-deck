@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import UnstyledButton from "../UnstyledButton/UnstyledButton";
-import { indexToUUID, intToUUID } from "../../../lib/uuidTools";
+import { indexToDeck, intToDeck } from "../../../lib/deckTools";
 import {
   querySmallScreen,
   queryVerySmallScreen,

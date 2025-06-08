@@ -1,21 +1,23 @@
 {
-  "name": "every-uuid",
+  "name": "every-card-deck",
   "version": "1.0.0",
-  "description": "in case I forget one",
+  "description": "casinos hate this",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predev": "rimraf .parcel-cache dist",
-    "dev": "parcel public/index.html",
-    "prebuild": "rimraf .parcel-cache dist",
-    "build": "parcel build public/index.html",
+    "dev": "vite",
+    "build": "vite build",
     "new-component": "new-component"
   },
+  "type": "module",
   "keywords": [],
-  "author": "nolen (eieio)",
+  "author": "Matt Scullino",
   "license": "ISC",
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.8",
+    "@vitejs/plugin-react": "^4.5.1",
     "eslint": "^8.57.1",
     "eslint-config-react-app": "^7.0.1",
+    "motion": "^12.12.2",
     "new-component": "^5.0.3",
     "node-forge": "^1.3.1",
     "parcel": "^2.13.2",
@@ -26,7 +28,9 @@
     "react-dom": "^18.3.1",
     "react-feather": "^2.0.10",
     "rimraf": "^6.0.1",
-    "styled-components": "^6.1.13"
+    "styled-components": "^6.1.13",
+    "tailwindcss": "^4.1.8",
+    "vite": "^6.3.5"
   },
   "browserslist": ">0.3%, defaults, supports es6-module",
   "devDependencies": {
@@ -34,6 +38,7 @@
     "events": "^3.3.0",
     "stream-browserify": "^3.0.0",
     "string_decoder": "^1.3.0",
+    "typescript": "^5.8.3",
     "vm-browserify": "^1.1.2"
   }
 }

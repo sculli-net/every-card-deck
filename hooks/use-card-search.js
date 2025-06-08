@@ -1,5 +1,6 @@
+/*global BigInt*/
 import React from "react";
-import { uuidToIndex, indexToUUID } from "../lib/uuidTools";
+import { deckToIndex, indexToDeck } from "../lib/deckTools";
 import { MAX_UUID } from "../lib/constants";
 const PADDING_SENTINEL = "X";
 const VARIANT_SENTINEL = "V";
@@ -101,7 +102,7 @@ export function useUUIDSearch({ virtualPosition, displayedUUIDs }) {
           if (index < 0n) {
             index = MAX_UUID + index;
           }
-          const uuid = indexToUUID(index);
+          const uuid = indexToDeck(index);
           prev.push({ index, uuid });
         }
         return prev;
@@ -127,7 +128,7 @@ export function useUUIDSearch({ virtualPosition, displayedUUIDs }) {
           if (index > MAX_UUID) {
             index = index - MAX_UUID;
           }
-          const uuid = indexToUUID(index);
+          const uuid = indexToDeck(index);
           next.push({ index, uuid });
         }
         return next;
@@ -182,7 +183,7 @@ export function useUUIDSearch({ virtualPosition, displayedUUIDs }) {
         const { pattern, leftPadding } =
           patterns[Math.floor(Math.random() * patterns.length)];
         const uuid = generateRandomUUID(pattern);
-        const index = uuidToIndex(uuid);
+        const index = deckToIndex(uuid);
         const satisfiesConstraint = wantHigher
           ? index > compareIndex
           : index < compareIndex;
@@ -210,7 +211,7 @@ export function useUUIDSearch({ virtualPosition, displayedUUIDs }) {
         uuid: generateRandomUUID(fallbackPattern),
         pattern: fallbackPattern,
         leftPadding: fallbackLeftPadding,
-        index: uuidToIndex(uuid),
+        index: deckToIndex(uuid),
       };
     },
     [nextStates, uuid, virtualPosition]

@@ -6,7 +6,7 @@ import { MAX_UUID } from "../../../lib/constants";
 import UUIDDisplay from "../UUIDDisplay/UUIDDisplay";
 import SearchWidget from "../SearchWidget/SearchWidget";
 import FavoritesWidget from "../FavoritesWidget";
-import { indexToUUID, uuidToIndex } from "../../../lib/uuidTools";
+import { indexToDeck, deckToIndex } from "../../../lib/deckTools";
 import JokeOverlay from "../JokeOverlay/JokeOverlay";
 const Wrapper = styled.div`
   display: flex;
@@ -140,7 +140,7 @@ function App() {
     if (showFavorites) {
       const allUUIDs = Object.keys(favedUUIDs)
         .map((uuid) => {
-          const index = uuidToIndex(uuid);
+          const index = deckToIndex(uuid);
           if (index === null) {
             console.error("no index", uuid);
             return null;
@@ -172,7 +172,7 @@ function App() {
       if (index > MAX_UUID) {
         return null;
       }
-      const uuid = indexToUUID(index);
+      const uuid = indexToDeck(index);
       if (!uuid) {
         console.error("no uuid", index);
         return null;
@@ -185,7 +185,7 @@ function App() {
     if (showFavorites) {
       return Object.keys(favedUUIDs)[0];
     }
-    return indexToUUID(virtualPosition);
+    return indexToDeck(virtualPosition);
   }, [virtualPosition, showFavorites, favedUUIDs]);
 
   const [browserHash, setBrowserHash] = React.useState(null);
